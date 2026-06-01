@@ -32,7 +32,9 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.linearVelocity = new Vector3(direction.x * moveSpeed, rb.linearVelocity.y, direction.y * moveSpeed);
+        transform.Rotate(Vector3.up, direction.x * 500 * Time.fixedDeltaTime);
+        
+        rb.linearVelocity = new Vector3(transform.right.x * direction.y * moveSpeed, rb.linearVelocity.y, transform.right.z * direction.y * moveSpeed);
     }
 
     public void Jump(InputAction.CallbackContext context)
