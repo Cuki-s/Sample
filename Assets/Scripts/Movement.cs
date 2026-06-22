@@ -1,10 +1,12 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Vector3 = UnityEngine.Vector3;
 
 public class Movement : MonoBehaviour
 {
+    public Variables variables;
     private Rigidbody rb;
     public Vector2 direction;
 
@@ -16,6 +18,7 @@ public class Movement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        variables = GetComponent<Variables>();
     }
 
     // Update is called once per frame
@@ -36,6 +39,8 @@ public class Movement : MonoBehaviour
         transform.Rotate(Vector3.up, direction.x * rotateSpeed * Time.fixedDeltaTime);
         
         rb.linearVelocity = new Vector3(transform.right.x * direction.y * moveSpeed, rb.linearVelocity.y, transform.right.z * direction.y * moveSpeed);
+        
+        variables.declarations.Set("Velocity", rb.linearVelocity);
     }
 
     public void Jump(InputAction.CallbackContext context)
